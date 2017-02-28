@@ -43,3 +43,7 @@ jobs:
       - TASK:
         #- script: IN/sample-script/gitRepo/echo.sh
         - script: echo "true"
+  - name: sample_php_runCI
+    type: runSh
+    steps:
+      - IN: box-sn
