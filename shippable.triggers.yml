@@ -3,7 +3,6 @@ triggers:
      type: trigger
      version:
        counter: 10
-
   - name: triggertest1
     type: trigger
     version:
