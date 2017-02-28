@@ -1,0 +1,38 @@
+resources:
+  - name: sample-script
+    type: gitRepo
+    integration: github
+    pointer:
+      sourceName: mohit5it9/sample-script
+      branch: master
+
+  - name: slackNotifications
+    type: notification
+    integration: slack
+    pointer:
+      recipients:
+        - "#slack_notifications"
+
+  - name: box-sn
+    type: image
+    integration: dockerhub
+    pointer:
+      sourceName: library/nginx
+      isPull: false
+    seed:
+      versionName: stable
+
+  - name: box-nginx
+    type: image
+    integration: dockerhub
+    pointer:
+      sourceName: scriptnull/sample_node
+      isPull: false
+    seed:
+      versionName: dc.pipeline.3
+
+  - name: ddc-cluster
+    type: cluster
+    integration: ddc
+    pointer:
+      sourceName: "ddc-cluster"
