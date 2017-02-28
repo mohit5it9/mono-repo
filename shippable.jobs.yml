@@ -1,0 +1,45 @@
+jobs:
+  - name: mohit-1
+    type: manifest
+    on_success:
+      - script: echo 'this is a success'
+    steps:
+      - IN: box-nginx
+      - IN: trigger-dv-man
+
+  - name: mohit-2
+    type: manifest
+    steps:
+      - IN: box-sn
+
+  - name: ddc-deploy-boxsn
+    type: deploy
+    steps:
+      - IN: ddc-cluster
+      - IN: mohit-2
+        switch: off
+  
+  - name: script-random
+    type: runSh
+    steps:
+      - IN: sample-script
+      - IN: triggertest1
+      - TASK:
+        - script: IN/sample-script/gitRepo/echo.sh
+        - script: echo "$SAMPLESCRIPT_NAME"
+    on_success:
+       - script: pwd
+       #- script: ls /build
+       - script: echo "works!!!"
+       #- NOTIFY: slackNotifications
+    on_start:
+      - script: uname -a
+      - script: echo "Inside on failure"
+      #- NOTIFY: slackNotifications
+      #- NOTIFY: myEmail
+  - name: single_job
+    type: runSh
+    steps:
+      - TASK:
+        #- script: IN/sample-script/gitRepo/echo.sh
+        - script: echo "true"
